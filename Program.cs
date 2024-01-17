@@ -1,36 +1,91 @@
 ﻿using System;
+using System.Runtime.ConstrainedExecution;
 using TestCSharp_Menu_interativo.Client;
 
 class Program 
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Client client = new Client();
-        string? option;
 
-        while (true)
+        Client client = new Client();
+
+        bool loop = true;
+        string option;     
+
+        while (loop)
         {
             Console.Clear();
-            Console.WriteLine("Choose one of the options:\n1 - Register client.\n2 - Show client.\n3 - Close.");
+            Console.WriteLine("MENU:\n1 - Register client.\n2 - Close.");
 
             option = Console.ReadLine();
 
             switch (option)
             {
                 case "1":
+                    Console.Clear();
+
                     Console.WriteLine("Register client:");
-                    client.SetClient();
+                    Console.WriteLine("Name: ");
+                    string name = Console.ReadLine();
+
+                    client.Name = name;
+
+                    string clientName = client.Name;
+
+                    Console.WriteLine("Age: ");
+                    int age = Convert.ToInt32(Console.ReadLine());
+
+                    client.Age = age;
+
+                    int clientAge = client.Age;
+
+                    Console.WriteLine("CPF: ");
+                    string CPF = Console.ReadLine();
+
+                    client.Cpf = CPF;
+
+                    string clientCPF = client.Cpf;
+
+                    Console.WriteLine("\nMENU:\n1 - Show client.\n2 - Back.\n3 - Close.");
+                    option = Console.ReadLine();
+
+                    switch (option)
+                    {
+                        case "1":
+                            Console.Clear();
+                            Console.WriteLine($"CLIENT:\nName: {clientName}\nAge: {clientAge} years old\nCPF: {clientCPF}");
+                            Console.ReadLine();
+
+                            break;
+
+                        case "2":                            
+                            break;
+
+                        case "3":
+                            loop = false;
+
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid option.");
+                            Console.ReadLine();
+
+                            break;
+                    }
+
                     break;
 
-                case "2":
-                    Console.WriteLine("Show client:");
-                    client.GetClient();
+                case "2":                   
+                    loop = false;
+
                     break;
 
-                case "3":
-                    Console.WriteLine("Close");
-                    Environment.Exit(0);
+                default:
+                    Console.WriteLine("Invalid option.");
+                    Console.ReadLine();
+
                     break;
+              
             }
         }
     }
